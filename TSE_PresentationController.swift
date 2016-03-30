@@ -10,19 +10,29 @@ import UIKit
 
 
 class TSE_PresentationController: UIPresentationController {
-    weak var wrapperView:UIView? = nil
-    weak var dimmingView:UIView? = nil
-    weak var helper:TSE_TransitionHelper!
     
+    
+    // MARK: - Properties
+    private weak var wrapperView:UIView? = nil
+    private weak var dimmingView:UIView? = nil
+    private weak var helper:TSE_TransitionHelper!
+    
+    
+    
+    // MARK: - Initializer
     init(presentedViewController: UIViewController, presentingViewController: UIViewController, helper:TSE_TransitionHelper){
         super.init(presentedViewController:presentedViewController, presentingViewController:presentingViewController)
         presentedViewController.modalPresentationStyle = .Custom
         self.helper = helper
     }
     
+    
+    // MARK: - Handle Transition
     override func presentedView() -> UIView? {
         return self.wrapperView
     }
+    
+    
     
     override func presentationTransitionWillBegin() {
         /* add a dimming overlay to the container view */
@@ -46,11 +56,15 @@ class TSE_PresentationController: UIPresentationController {
             }, completion: nil)
     }
     
+    
+    
     override func presentationTransitionDidEnd(completed: Bool) {
         if !completed {
             dimmingView?.removeFromSuperview()
         }
     }
+    
+    
     
     override func dismissalTransitionWillBegin() {
         let transitionCoordinator = self.presentingViewController.transitionCoordinator()
@@ -60,6 +74,8 @@ class TSE_PresentationController: UIPresentationController {
         
     }
     
+    
+    
     override func dismissalTransitionDidEnd(completed: Bool) {
         if completed {
             dimmingView?.removeFromSuperview()
@@ -67,7 +83,9 @@ class TSE_PresentationController: UIPresentationController {
         }
     }
     
-    func setupPresentedView(){
+    
+    
+    private func setupPresentedView(){
         guard let presentedView = super.presentedView() else {
             return
         }
@@ -81,9 +99,13 @@ class TSE_PresentationController: UIPresentationController {
         self.wrapperView = wrapperView
     }
     
+    
+    
+    // MARK: - UI Events
     func dimmingViewTapped(sender: UITapGestureRecognizer) {
         self.presentingViewController.dismissViewControllerAnimated(true, completion: nil)
     }
+    
 
 }
 

@@ -9,17 +9,25 @@
 import UIKit
 
 class TSE_AnimationController: NSObject, UIViewControllerAnimatedTransitioning, PresentDismissAnimation {
-    var cachedFrameBeforePresenting:CGRect?
+    
+    // MARK: - Properties
     var isPresenting:Bool = true
-    weak var helper:TSE_TransitionHelper!
+    private weak var helper:TSE_TransitionHelper!
+    
+    
+    // MARK: - Initializer
     init(helper:TSE_TransitionHelper){
         super.init()
         self.helper = helper
     }
     
+    
+    // MARK: - Handle Animation
     func transitionDuration(transitionContext: UIViewControllerContextTransitioning?) -> NSTimeInterval {
         return 0.6
     }
+    
+    
     
     func animateTransition(transitionContext: UIViewControllerContextTransitioning) {
         
@@ -30,6 +38,8 @@ class TSE_AnimationController: NSObject, UIViewControllerAnimatedTransitioning, 
         }
         
     }
+    
+    
     
     private func performPresentAnimation(transitionContext: UIViewControllerContextTransitioning) {
         
@@ -55,7 +65,6 @@ class TSE_AnimationController: NSObject, UIViewControllerAnimatedTransitioning, 
         }
         
         
-       
         UIView.animateWithDuration(transitionDuration / 2, animations: { () -> Void in
             /* step 1 */
             toView?.frame.size.width = toViewFinalFrame.size.width
@@ -68,6 +77,8 @@ class TSE_AnimationController: NSObject, UIViewControllerAnimatedTransitioning, 
         })
         
     }
+    
+    
     
     private func performDismissAnimation(transitionContext: UIViewControllerContextTransitioning) {
 
@@ -96,5 +107,7 @@ class TSE_AnimationController: NSObject, UIViewControllerAnimatedTransitioning, 
         })
 
     }
+    
+    
     
 }
