@@ -38,7 +38,7 @@ public protocol TSE_TransitionHelper:class {
     
 }
 
-/* The dedault implemenation of the TSE_TransitionHelper */
+/* The default implemenation of the TSE_TransitionHelper */
 extension TSE_TransitionHelper{
     
     
